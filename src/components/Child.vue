@@ -18,7 +18,12 @@
 
 </div>
 
-</template>
+<!-- Parent to child passing data-->
+<h2>passing data wih props from child to Parent</h2>
+
+<button v-on:click="getUserOffice(username)">send child to parent</button>
+<!-- Parent to child passing data-->
+</template> 
 
 <script>
 
@@ -55,6 +60,7 @@ export default {
             ],
             tag:"<p>Hello Vue js</p>",
             colorfull:false,
+            username:"prajyot more from iorta"
         }
     },
     computed:{
@@ -69,12 +75,13 @@ export default {
     methods:{
         getInformation(name) {
             alert(name)
-        }
+        },
     },
     props: {
         name: String,
         object: Object,
-        passData: Function
+        passData: Function,
+        getUserOffice: Function,
     }
 }
 </script>

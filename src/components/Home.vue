@@ -15,7 +15,7 @@
 
 
 <!-- Parent to child passing data-->
-<Child name="prajyot" :object="object" :passData="passData"/>
+<Child name="prajyot" :object="object" :passData="passData" :getUserOffice="getOfficeData"/>
 <!-- Parent to child passing data-->
 
 
@@ -96,6 +96,57 @@ Name : {{el.name}} and City : {{el.city}}
 
 <!-- appliyng loop in array and array of object  -->
 
+
+
+<!-- passing props from child to parent -->
+<h1>{{Uname}}</h1>
+
+<!-- passing props from child to parent -->
+
+
+<!-- how to use refs on input fieldand how do i set and get the data using refs -->
+
+
+<input type="text" placeholder="Enter anything 1" ref="input1"/>
+<input type="text" placeholder="Enter anything 2" ref="input2"/>
+<button v-on:click="getRefsData">Refs data</button>
+
+<!-- how to use refs on input fieldand how do i set and get the data using refs -->
+
+<!-- create login form and store and print the data using v-model -->
+<p>{{form}}</p>
+<br/><br/>
+<label>Email : </label>
+<input type="text" placeholder="Enter Email" v-model="form.email"/>
+<br/><br/>
+<label>Password : </label>
+<input type="password" placeholder="Enter Password" v-model="form.password"/>
+<br/><br/>
+<select v-model="form.country">
+<option>India</option>
+<option>USA</option>
+<option>Brazil</option>
+<option>Portugal</option>
+<option>Argentina</option>
+</select>
+<br/><br/>
+<h3>Passport</h3>
+<label>Yes : </label>
+<input type="checkbox" value="yes" v-model="form.passport"/>
+<br/><br/>
+<label>No : </label>
+<input type="checkbox" value="no" v-model="form.passport"/>
+<br/><br/>
+<h3>Gender</h3>
+<label>Male : </label>
+<input type="radio" value="male" name="male" v-model="form.gender"/>
+<br/><br/>
+<label>Female : </label>
+<input type="radio" value="female" name="female" v-model="form.gender"/>
+<br/><br/>
+<button v-on:click="login">Login</button>
+<!-- create login form and store and print the data using v-model -->
+
 </template>
 
 <script>
@@ -108,6 +159,14 @@ export default {
     },
     data() {
         return {
+            form: {
+                email:'',
+                password: '',
+                country: '',
+                passport: [],
+                gender:'',
+            },
+            Uname: "",
             email: null,
             password: null,
             mobile: 7385512964,
@@ -165,6 +224,19 @@ export default {
         },
         passData(){
             console.log('Calling from parent component')
+        }, 
+         getOfficeData(name){
+            this.Uname = name;
+        },
+        getRefsData(){
+        this.$refs.input1.focus();
+        let value1 = this.$refs.input1.value;
+        this.$refs.input2.focus();
+        let value2 = this.$refs.input2.value;
+        console.log('=====',value1,value2);
+        },
+        login(){
+            console.warn("login creds are",this.form)
         }
     }
 }
