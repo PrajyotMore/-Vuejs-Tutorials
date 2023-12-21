@@ -113,8 +113,14 @@ Name : {{el.name}} and City : {{el.city}}
 
 <!-- how to use refs on input fieldand how do i set and get the data using refs -->
 
-<!-- create login form and store and print the data using v-model -->
+<!-- create login form and store and print the data using v-model using validations-->
 <p>{{form}}</p>
+
+<ul>
+<li v-for="item in error" v-bind:key="item">
+{{item}} not valid
+</li>
+</ul>
 <br/><br/>
 <label>Email : </label>
 <input type="text" placeholder="Enter Email" v-model="form.email"/>
@@ -139,13 +145,24 @@ Name : {{el.name}} and City : {{el.city}}
 <br/><br/>
 <h3>Gender</h3>
 <label>Male : </label>
-<input type="radio" value="male" name="male" v-model="form.gender"/>
+<input type="radio" value="male" name="gender" v-model="form.gender"/>
 <br/><br/>
 <label>Female : </label>
-<input type="radio" value="female" name="female" v-model="form.gender"/>
+<input type="radio" value="female" name="gender" v-model="form.gender"/>
 <br/><br/>
 <button v-on:click="login">Login</button>
-<!-- create login form and store and print the data using v-model -->
+<!-- create login form and store and print the data using v-model using validations -->
+
+
+
+<!-- Form Modifiers -->
+
+
+<h1>Form Modifier</h1>
+<input type="text" v-model.lazy.trim="modifier"/>
+<h2>value is : {{typeof(modifier)}}</h2>
+<h3>value is : {{modifier}}</h3>
+<!-- Form Modifiers -->
 
 </template>
 
@@ -159,6 +176,7 @@ export default {
     },
     data() {
         return {
+            modifier:"",
             form: {
                 email:'',
                 password: '',
@@ -166,6 +184,7 @@ export default {
                 passport: [],
                 gender:'',
             },
+            error: [],
             Uname: "",
             email: null,
             password: null,
@@ -236,7 +255,17 @@ export default {
         console.log('=====',value1,value2);
         },
         login(){
-            console.warn("login creds are",this.form)
+            this.error = [];
+            for(const item in this.form ){
+                if(this.form[item] === "" || this.form[item].length === 0){
+                    this.error.push(item)
+                }
+            }
+
+            if(this.error.length === 0){
+                alert("data is submitted")
+            }
+            console.log("form creds are",this.form,this.error)
         }
     }
 }
